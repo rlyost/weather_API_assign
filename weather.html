@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Rick Yost
+2 Mar 2018
+Weather API Assignment -->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Weather API</title>
+<!-- 	<link rel="stylesheet" type="text/css" href=""> -->
+	<style>
+		#place {
+
+		}
+		.search {
+			text-decoration: bold;
+			background-color: grey;
+			font-size: 14pt;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		"use strict";
+
+		$(document).ready(function() {
+		    $('form').submit(function() {
+		        var place = $("#place").val();
+		        console.log(place);
+		        $.get(`http://api.openweathermap.org/data/2.5/weather?q=${place}&&units=imperial&&appid=1a4029c2a69f93016e67a7faba869202`, function(res) {
+		            var html_str = "";
+	             	html_str += "<h1>" + place + "</h1>";
+	             	html_str += "Temperature: " + res.main.temp + " Degrees Fahrenheit";
+		        	$("#container").html(html_str);
+		        }, 'json');
+		        // don't forget to return false so the page doesn't refresh
+		        return false;
+		    });
+		});
+
+	</script>
+</head>
+<body>
+	<form>
+		<input type="text" name="place" id="place">
+		<button class="search">Search Weather</button>
+	</form>
+	<div id="container"></div>
+</body>
+</html>
